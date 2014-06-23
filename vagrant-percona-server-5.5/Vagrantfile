@@ -1,0 +1,17 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.define :ps55 do |p55_config|
+	p55_config.vm.box = 'centos6'
+	p55_config.vm.box_url = 'https://dl.dropbox.com/u/7225008/Vagrant/CentOS-6.3-x86_64-minimal.box' 
+	p55_config.vm.hostname = 'ps55'
+	p55_config.vm.provider :virtualbox do |vb|
+		vb.customize ["modifyvm", :id, "--memory", "1024", "--cpuexecutioncap", "60"] 
+	end
+	p55_config.vm.network "public_network" 
+	p55_config.vm.provision "shell", path: "./provision.sh"
+   end
+
+end
