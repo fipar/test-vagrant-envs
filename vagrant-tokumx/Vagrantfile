@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  #config.vbguest.auto_update = false
+  #config.vbguest.no_remote = true
+  config.vm.define :tokumxlab do |tokumxlab_config|
+	tokumxlab_config.vm.box = 'centos6'
+	tokumxlab_config.vm.box_url = 'https://dl.dropbox.com/u/7225008/Vagrant/CentOS-6.3-x86_64-minimal.box' 
+	tokumxlab_config.vm.hostname = 'tokumxlab'
+	tokumxlab_config.vm.provider :virtualbox do |vb|
+		vb.customize ["modifyvm", :id, "--memory", "4096"] 
+	end
+
+        tokumxlab_config.vm.synced_folder "~/src/", "/home/vagrant/src/"
+        tokumxlab_config.vm.synced_folder "~/mongodb/", "/home/vagrant/mongodb/"
+	tokumxlab_config.vm.network "public_network" 
+        tokumxlab_config.vm.provision "shell", path: "./provision.sh"
+   end
+
+end

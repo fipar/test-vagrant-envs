@@ -1,0 +1,17 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.define :mysql55com do |mysql55com_config|
+	mysql55com_config.vm.box = 'centos6'
+	mysql55com_config.vm.box_url = 'https://dl.dropbox.com/u/7225008/Vagrant/CentOS-6.3-x86_64-minimal.box' 
+	mysql55com_config.vm.hostname = 'mysql55com'
+	mysql55com_config.vm.provider :virtualbox do |vb|
+		vb.customize ["modifyvm", :id, "--memory", "1024", "--cpuexecutioncap", "60"] 
+	end
+	mysql55com_config.vm.network "public_network" 
+	mysql55com_config.vm.provision "shell", path: "./provision.sh"
+   end
+
+end
