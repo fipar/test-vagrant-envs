@@ -1,0 +1,21 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Assumes a box from https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box
+
+# This starts up 3 instances, sets up the Percona repo on them, and does nothing else. It is meant to test manual installation of Percona software (like PXC).  
+
+
+Vagrant.configure("2") do |config|
+  config.vm.box = 'centos65-x86_64-20140116'
+  config.vm.box_url = 'https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box'
+  config.vm.boot_timeout = 600
+  # Create all three nodes identically except for name and ip
+  [ 'node0', 'node1', 'node2' ].each { |name|
+    config.vm.define :node do |node_config|
+      node_config.vm.hostname = name
+      node_config.vm.provision "shell", path: "./provision.sh"
+    end
+  }
+end
+
