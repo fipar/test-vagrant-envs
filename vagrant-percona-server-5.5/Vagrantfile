@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
 	ps55_config.vm.provider :virtualbox do |vb|
 		vb.customize ["modifyvm", :id, "--memory", "1024", "--cpuexecutioncap", "60"] 
 	end
-	ps55_config.vm.network "public_network" 
+	#ps55_config.vm.network "public_network" 
 	ps55_config.vm.provision "shell", path: "./provision.sh"
    end
 
