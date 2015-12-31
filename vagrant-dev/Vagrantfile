@@ -6,8 +6,7 @@ Vagrant.configure("2") do |config|
   #config.vbguest.auto_update = false
   #config.vbguest.no_remote = true
   config.vm.define :miles do |miles_config|
-	miles_config.vm.box = 'centos6'
-	miles_config.vm.box_url = 'https://dl.dropbox.com/u/7225008/Vagrant/CentOS-6.3-x86_64-minimal.box' 
+	miles_config.vm.box = 'centos7'
 	miles_config.vm.hostname = 'miles'
 	miles_config.vm.provider :virtualbox do |vb|
 		vb.customize ["modifyvm", :id, "--memory", "4096", "--cpus", "12"] 
