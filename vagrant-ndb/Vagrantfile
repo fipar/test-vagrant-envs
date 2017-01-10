@@ -1,0 +1,21 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = 'centos65-x86_64-20140116'
+  config.vm.box_url = 'https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box'
+  config.vm.boot_timeout = 600
+  net_host=50
+  net_base="192.168.1." # set to some unique network prefix on your environment
+  [ 'sql', 'data'].each { |node_type| # mgmt will be run on sql nodes
+    (1..2).each { |i|
+      config.vm.define "#{node_type}#{i}" do |node|
+        node.vm.hostname = "#{node_type}#{i}"
+        node.vm.network "private_network", ip: "#{net_base}#{net_host}"
+        node.vm.provision "shell", path: "./provision.sh"
+        net_host = net_host + 1
+      end
+    }
+  }
+end
+
