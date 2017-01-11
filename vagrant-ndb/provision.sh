@@ -15,6 +15,7 @@ test -d /home/vagrant/mysql-cluster-gpl-7.5.4-linux-glibc2.5-x86_64/ && {
 [mysqld]
 # Options for mysqld process:
 ndbcluster                      # run NDB storage engine
+datadir=/var/lib/mysql
 
 [mysql_cluster]
 # Options for NDB Cluster  processes:
