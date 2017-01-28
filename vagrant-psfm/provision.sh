@@ -12,6 +12,6 @@ install_if_needed()
    rpm -qa|grep $p >/dev/null && return 0 || yum -y install $url
 }
 
-install_if_needed percona-release http://www.percona.com/downloads/percona-release/percona-release-0.0-1.x86_64.rpm
+install_if_needed percona-release https://www.percona.com/redir/downloads/percona-release/redhat/latest/percona-release-0.1-4.noarch.rpm 
 install_if_needed Percona-Server-MongoDB
 
