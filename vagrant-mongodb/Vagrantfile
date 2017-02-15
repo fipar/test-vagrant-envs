@@ -1,0 +1,17 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.define :mongotest do |mongotest_config|
+	mongotest_config.vm.box = 'centos7'
+	mongotest_config.vm.box_url = 'https://github.com/holms/vagrant-centos7-box/releases/download/7.1.1503.001/CentOS-7.1.1503-x86_64-netboot.box'
+	mongotest_config.vm.hostname = 'mongotest'
+	mongotest_config.vm.provider :virtualbox do |vb|
+		vb.customize ["modifyvm", :id, "--memory", "4096"] 
+	end
+        mongotest_config.vm.synced_folder "~/src/", "/home/vagrant/src/"
+        mongotest_config.vm.provision "shell", path: "./provision.sh"
+   end
+
+end
