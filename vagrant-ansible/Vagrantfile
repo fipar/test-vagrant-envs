@@ -1,0 +1,15 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.define :ansible do |ansible_config|
+	ansible_config.vm.box = 'ubuntu16'
+	ansible_config.vm.box_url = 'https://github.com/jose-lpa/packer-ubuntu_lts/releases/download/v3.1/ubuntu-16.04.box'
+	ansible_config.vm.hostname = 'ansible'
+        ansible_config.vm.synced_folder "~/src/", "/home/vagrant/src/"
+	#ansible_config.vm.network "public_network" 
+        ansible_config.vm.provision "shell", path: "./provision.sh"
+   end
+
+end
