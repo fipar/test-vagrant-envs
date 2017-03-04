@@ -72,6 +72,15 @@ EOF
     cp /usr/local/mysql/support-files/mysql.server /etc/rc.d/init.d
     chmod +x /etc/rc.d/init.d/mysql.server
     chkconfig --add mysql.server
+    service mysql.server start 
+    cat <<EOF >> /home/vagrant/.bashrc 
+export PATH=$PATH:/usr/local/mysql/bin/
+EOF
+    cat <<EOF>/home/vagrant/.my.cnf 
+[client]
+user=root
+
+EOF
     ifconfig -a | grep 192.168.1.50 >/dev/null && echo "starting mgmd" && /usr/local/mysql/bin/ndb_mgmd -f /var/lib/mysql-cluster/config.ini --ndb_nodeid=0
 }
 
