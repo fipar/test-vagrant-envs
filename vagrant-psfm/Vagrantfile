@@ -10,6 +10,7 @@ Vagrant.configure("2") do |config|
 	psfm_config.vm.provider :virtualbox do |vb|
 		vb.customize ["modifyvm", :id, "--memory", "8192"]
 	end
+        psfm_config.vm.synced_folder "~/src/", "/home/vagrant/src/"
 	psfm_config.vm.network "public_network" 
 	psfm_config.vm.provision "shell", path: "./provision.sh"
    end
