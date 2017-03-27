@@ -1,0 +1,27 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# This boots an environment used for Ansible labs 
+# Ansible is installed in the control node, and ssh access to the managed hosts is
+# configured.  
+
+IP_BLOCK="192.168.25"
+system 'test -f ansible_tests.pub || ssh-keygen -t rsa -N "" -f ansible_tests'
+
+
+Vagrant.configure("2") do |config|
+  config.vm.box = 'ubuntu/trusty64'
+  config.vm.box_url = 'https://atlas.hashicorp.com/ubuntu/trusty64' 
+  config.vm.boot_timeout = 600
+  machine_id = 2 
+  # Create all nodes identically except for name and ip
+  [ 'control', 'app01', 'app02', 'db01', 'db02', 'db03' ].each { |name|
+    config.vm.define name do |node_config|
+      node_config.vm.hostname = name
+      node_config.vm.network "private_network", ip: "#{IP_BLOCK}.#{machine_id}"
+      node_config.vm.provision "shell", path: "./provision.sh"
+      machine_id = machine_id + 1
+    end
+  }
+end
+
